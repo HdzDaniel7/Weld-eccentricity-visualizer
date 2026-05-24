@@ -149,7 +149,7 @@ The same weld bead "unrolled" into a straight line along the X axis. Both script
 
 ### Circular weld
 
-![Circular weld example2](images/circular\_weld\_example2.png)
+![circular_weld_example_2](images/circular\_weld\_example_2.png)
 
 ### Linear weld
 
