@@ -9,8 +9,8 @@
 ```
 weld-eccentricity-visualizer/
 │
-├── Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Circular\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py          # Circular weld visualizer
-├── Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Lineal\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py            # Linear weld visualizer
+├── Soldadura_Circular_3D.py          # Circular weld visualizer
+├── Soldadura_Lineal_3D.py            # Linear weld visualizer
 ├── Tabla de excentricidad.xlsm # Example data file (fictitious data)
 ├── .gitignore
 └── README.md
@@ -20,12 +20,12 @@ weld-eccentricity-visualizer/
 
 ## What the Scripts Do
 
-### `Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Circular\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py` — Circular Weld
+### `Soldadura_Circular_3D.py` — Circular Weld
 
 Models a weld that runs around a circular joint (e.g., a pipe or cylindrical part).
 
 * Reads 8 measurement points at angular positions (e.g., 0°, 45°, 90°, 135°, 180°, 225°, 270°, 315°)
-* Each point has: **inner edge radius** (`dist\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_1`), **outer edge radius** (`dist\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_2`), and **weld depth**
+* Each point has: **inner edge radius** (`dist_1`), **outer edge radius** (`dist_2`), and **weld depth**
 * Interpolates all 4 curves circularly with a cubic spline (200-point resolution) so the result is a smooth ring, not a hexagon
 * Builds two 3D surfaces: outer wall (cyan) and inner wall (orange), plus a flat top annulus (gray)
 * Original 8 measured points remain visible as distinct markers
@@ -33,7 +33,7 @@ Models a weld that runs around a circular joint (e.g., a pipe or cylindrical par
 
 
 
-### `Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Lineal\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py` — Linear Weld
+### `Soldadura_Lineal_3D.py` — Linear Weld
 
 Models a weld that runs in a straight line (e.g., a butt weld or fillet on a flat plate).
 
@@ -45,22 +45,22 @@ Models a weld that runs in a straight line (e.g., a butt weld or fillet on a fla
 
 
 
-\---
+---
 
 ## Data Format
 
-Both scripts read from an Excel file (`.xlsm` or `.xlsx`). The relevant block is the **first measurement range only** (`df.iloc\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\[8:16]`), which maps to approximately rows 9–16 in Excel (assuming row 1 is the header).
+Both scripts read from an Excel file (`.xlsm` or `.xlsx`). The relevant block is the **first measurement range only** (`df.iloc[8:16]`), which maps to approximately rows 9–16 in Excel (assuming row 1 is the header).
 
 |Script column index|Excel column|Content|
 |-|-|-|
 |1|B|Angle of measurement (degrees)|
-|2|N|`dist\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_1` — inner edge radius (mm)|
-|3|O|`dist\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_2` — outer edge radius (mm)|
+|2|N|`dist_1` — inner edge radius (mm)|
+|3|O|`dist_2` — outer edge radius (mm)|
 |5|P|Weld center depth (mm)|
 
-> The file `Tabla de excentricidad.xlsm` included in this repo uses exactly this layout with It contains VBA macros and ActiveX controls that drive the calculation tables — \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*enable macros when prompted by Excel\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\*\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\* to ensure the workbook functions correctly. No sensitive data, paths, or company references are present in this file.
+> The file `Tabla de excentricidad.xlsm` included in this repo uses exactly this layout with It contains VBA macros and ActiveX controls that drive the calculation tables — *enable macros when prompted by Excel* to ensure the workbook functions correctly. No sensitive data, paths, or company references are present in this file.
 
-\---
+---
 
 ## Requirements
 
@@ -80,7 +80,7 @@ Install manually if preferred:
 pip install numpy pandas matplotlib openpyxl scipy
 ```
 
-\---
+---
 
 ## Usage
 
@@ -91,8 +91,8 @@ Inside each script there are two clearly marked blocks. By default, **Option A**
 Just run:
 
 ```bash
-python Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Circular\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py
-python Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Lineal\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py
+python Soldadura_Circular_3D.py
+python Soldadura_Lineal_3D.py
 ```
 
 ### Option B — Your own Excel file
@@ -100,17 +100,17 @@ python Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_
 1. Open the script and find the `FUENTE DE DATOS` section.
 2. Comment out Option A (add `#` to each line).
 3. Uncomment Option B (remove `#` from each line).
-4. Set the correct path to your file in `archivo\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_excel`.
+4. Set the correct path to your file in `archivo_excel`.
 5. Pass the sheet name as a command-line argument:
 
 ```bash
-python Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Circular\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py MySheetName
-python Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Lineal\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py  MySheetName
+python Soldadura_Circular_3D.py MySheetName
+python Soldadura_Lineal_3D.py  MySheetName
 ```
 
-**Important:** Your Excel file must follow the column layout described in the [Data Format](#data-format) section above. Use `Calculo\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Excentricidad\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_EXAMPLE.xlsx` as a structural reference.
+**Important:** Your Excel file must follow the column layout described in the [Data Format](#data-format) section above. Use `Tabla de excentricidad.xlsm` as a structural reference.
 
-\---
+---
 
 ## Switching Between Modes — Quick Reference
 
@@ -118,26 +118,26 @@ python Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_
 # ── Inside each script, find this block: ──────────────────────────────────────
 
 # --- OPTION A: Example data (active by default) ---
-USE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_EXAMPLE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_DATA = True       # <── set to False to use Excel
-angles\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_1 = np.array(\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\[...])
+USE_EXAMPLE_DATA = True       # <── set to False to use Excel
+angles_1 = np.array([...])
 ...
 
-# --- OPTION B: Read from Excel (uncomment and set USE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_EXAMPLE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_DATA = False) ---
-# USE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_EXAMPLE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_DATA = False
-# hoja = sys.argv\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\[1]
-# archivo\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_excel = "path/to/your/file.xlsm"
+# --- OPTION B: Read from Excel (uncomment and set USE_EXAMPLEDATA = False) ---
+# USE_EXAMPLE_DATA = False
+# hoja = sys.argv[1]
+# archivo_excel = "path/to/your/file.xlsm"
 # ...
 ```
 
-\---
+---
 
 ## Output Examples
 
-### Circular weld (`Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Circular\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py`)
+### Circular weld (`Soldadura_Circular_3D.py`)
 
 A smooth toroidal-section surface showing the weld bead running around a circular joint. The 6 original measurement points are highlighted in blue (outer edge), green (inner edge), and red diamonds (depth).
 
-### Linear weld (`Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Lineal\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py`)
+### Linear weld (`Soldadura_Lineal_3D.py`)
 
 The same weld bead "unrolled" into a straight line along the X axis. Both scripts share the same data structure so you can compare circular vs. linear geometry from the same measurement.
 
@@ -146,6 +146,8 @@ The same weld bead "unrolled" into a straight line along the X axis. Both script
 ### Circular weld
 
 ![Circular weld example](images/circular\_weld\_example.png)
+
+### Circular weld
 
 ![Circular weld example2](images/circular\_weld\_example2.png)
 
