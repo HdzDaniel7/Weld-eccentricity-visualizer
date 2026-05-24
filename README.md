@@ -31,11 +31,7 @@ Models a weld that runs around a circular joint (e.g., a pipe or cylindrical par
 * Original 8 measured points remain visible as distinct markers
 * Reference cylinders and dotted guide circles are drawn at fixed radii
 
-\### Circular weld
 
-!\[Circular weld example](images/circular\_weld\_example.png)
-
-!\[Circular weld example2](images/circular\_weld\_example2.png)
 
 ### `Soldadura\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_Lineal\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_3D.py` — Linear Weld
 
@@ -47,9 +43,7 @@ Models a weld that runs in a straight line (e.g., a butt weld or fillet on a fla
 * End caps are drawn at both ends of the weld bead
 * Original measurement points remain visible as distinct markers
 
-\### Linear weld
 
-!\[Linear weld example](images/linear\_weld\_example.png)
 
 \---
 
@@ -147,13 +141,23 @@ A smooth toroidal-section surface showing the weld bead running around a circula
 
 The same weld bead "unrolled" into a straight line along the X axis. Both scripts share the same data structure so you can compare circular vs. linear geometry from the same measurement.
 
-\---
+---
+
+### Circular weld
+
+![Circular weld example](images/circular\_weld\_example.png)
+
+![Circular weld example2](images/circular\_weld\_example2.png)
+
+### Linear weld
+
+![Linear weld example](images/linear\_weld\_example.png)
 
 ## Privacy Note
 
 Only a fictitious example file is provided.
 
-\---
+---
 
 ## License
 
